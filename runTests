@@ -1,0 +1,4 @@
+#!/bin/sh
+
+go test ./core/model
+go test ./core/auth

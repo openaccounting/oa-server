@@ -1,0 +1,12 @@
+{
+  "WebUrl": "https://domain.com",
+  "Port": 8080,
+  "KeyFile": "",
+  "CertFile": "",
+  "Database": "openaccounting",
+  "User": "openaccounting",
+  "Password": "openaccounting",
+  "SendgridKey": "",
+  "SendgridEmail": "noreply@domain.com",
+  "SendgridSender": "Sender"
+}

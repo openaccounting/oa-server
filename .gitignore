@@ -1,0 +1,6 @@
+config.json
+*.crt
+*.key
+*.csr
+*.sublime-project
+*.sublime-workspace
