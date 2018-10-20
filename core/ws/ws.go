@@ -324,10 +324,12 @@ func checkVersion(clientVersion string) error {
 	}
 
 	serverVersion, _ := semver.NewVersion(version)
+	compatVersion, _ := semver.NewVersion("0.1.8")
 
 	versionMatch := constraint.Check(serverVersion)
+	compatMatch := constraint.Check(compatVersion)
 
-	if versionMatch != true {
+	if versionMatch == false && compatMatch == false {
 		return errors.New("Invalid version")
 	}
 
