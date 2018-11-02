@@ -3,7 +3,6 @@ package db
 import (
 	"database/sql"
 	"errors"
-	"fmt"
 	"github.com/openaccounting/oa-server/core/model/types"
 	"github.com/openaccounting/oa-server/core/util"
 	"time"
@@ -20,6 +19,7 @@ type UserInterface interface {
 	GetUserByActiveSession(string) (*types.User, error)
 	GetUserByApiKey(string) (*types.User, error)
 	GetUserByResetCode(string) (*types.User, error)
+	GetUserByEmailVerifyCode(string) (*types.User, error)
 	GetOrgAdmins(string) ([]*types.User, error)
 }
 
@@ -172,7 +172,24 @@ func (db *DB) GetUserByResetCode(code string) (*types.User, error) {
 		return nil, err
 	}
 
-	fmt.Println(u)
+	return u, nil
+}
+
+func (db *DB) GetUserByEmailVerifyCode(code string) (*types.User, error) {
+	// only allow this for 3 days
+	minInserted := (time.Now().UnixNano() / 1000000) - (3 * 24 * 60 * 60 * 1000)
+	qSelect := "SELECT " + userFields
+	qFrom := " FROM user u"
+	qWhere := " WHERE u.emailVerifyCode = ? AND inserted > ?"
+
+	query := qSelect + qFrom + qWhere
+
+	row := db.QueryRow(query, code, minInserted)
+	u, err := db.unmarshalUser(row)
+
+	if err != nil {
+		return nil, err
+	}
 
 	return u, nil
 }

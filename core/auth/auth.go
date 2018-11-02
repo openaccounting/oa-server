@@ -19,6 +19,7 @@ type Interface interface {
 	AuthenticateUser(email string, password string) (*types.User, error)
 	AuthenticateSession(string) (*types.User, error)
 	AuthenticateApiKey(string) (*types.User, error)
+	AuthenticateEmailVerifyCode(string) (*types.User, error)
 }
 
 func NewAuthService(db db.Datastore, bcrypt util.Bcrypt) *AuthService {
@@ -42,6 +43,12 @@ func (auth *AuthService) Authenticate(emailOrKey string, password string) (*type
 	}
 
 	user, err = auth.AuthenticateUser(emailOrKey, password)
+
+	if err == nil {
+		return user, nil
+	}
+
+	user, err = auth.AuthenticateEmailVerifyCode(emailOrKey)
 
 	if err == nil {
 		return user, nil
@@ -86,6 +93,16 @@ func (auth *AuthService) AuthenticateApiKey(id string) (*types.User, error) {
 	}
 
 	auth.db.UpdateApiKeyActivity(id)
+
+	return u, nil
+}
+
+func (auth *AuthService) AuthenticateEmailVerifyCode(code string) (*types.User, error) {
+	u, err := auth.db.GetUserByEmailVerifyCode(code)
+
+	if err != nil {
+		return nil, errors.New("Access denied")
+	}
 
 	return u, nil
 }
