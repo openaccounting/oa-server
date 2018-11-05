@@ -22,12 +22,12 @@ type ResetPasswordParams struct {
 
 /**
  * @api {get} /user Get Authenticated User
- * @apiVersion 1.0.0
+ * @apiVersion 1.0.1
  * @apiName GetUser
  * @apiGroup User
  *
  * @apiHeader {String} Authorization HTTP Basic Auth
- * @apiHeader {String} Accept-Version ^1.0.0 semver versioning
+ * @apiHeader {String} Accept-Version ^1.0.1 semver versioning
  *
  * @apiSuccess {String} id Id of the User.
  * @apiSuccess {Date} inserted Date User was created
@@ -37,6 +37,7 @@ type ResetPasswordParams struct {
  * @apiSuccess {String} email Email of the User.
  * @apiSuccess {Boolean} agreeToTerms Agree to terms
  * @apiSuccess {Boolean} emailVerified True if email has been verified.
+ * @apiSuccess {String} signupSource Identify signup source (android, ios, web)
  *
  * @apiSuccessExample Success-Response:
  *     HTTP/1.1 200 OK
@@ -48,7 +49,8 @@ type ResetPasswordParams struct {
  *       "lastName": "Doe",
  *       "email": "johndoe@email.com",
  *       "agreeToTerms": true,
- *       "emailVerified": true
+ *       "emailVerified": true,
+ *       "signupSource": "web"
  *     }
  *
  * @apiUse NotAuthorizedError
@@ -62,11 +64,11 @@ func GetUser(w rest.ResponseWriter, r *rest.Request) {
 
 /**
  * @api {post} /users Create a new User
- * @apiVersion 1.0.0
+ * @apiVersion 1.0.1
  * @apiName PostUser
  * @apiGroup User
  *
- * @apiHeader {String} Accept-Version ^1.0.0 semver versioning
+ * @apiHeader {String} Accept-Version ^1.0.1 semver versioning
  *
  * @apiParam {String} id 32 character hex string
  * @apiParam {String} firstName First name of the User.
@@ -74,6 +76,7 @@ func GetUser(w rest.ResponseWriter, r *rest.Request) {
  * @apiParam {String} email Email of the User.
  * @apiParam {String} password Password of the User.
  * @apiParam {Boolean} agreeToTerms True if you agree to terms
+ * @apiParam {String} signupSource Identify signup source (android, ios, web)
  *
  * @apiSuccess {String} id Id of the User.
  * @apiSuccess {Date} inserted Date User was created
@@ -82,6 +85,7 @@ func GetUser(w rest.ResponseWriter, r *rest.Request) {
  * @apiSuccess {String} lastName  Last name of the User.
  * @apiSuccess {String} email Email of the User.
  * @apiSuccess {Boolean} emailVerified True if email has been verified.
+ * @apiSuccess {String} signupSource Identify signup source (android, ios, web)
  *
  * @apiSuccessExample Success-Response:
  *     HTTP/1.1 200 OK
@@ -93,7 +97,8 @@ func GetUser(w rest.ResponseWriter, r *rest.Request) {
  *       "lastName": "Doe",
  *       "email": "johndoe@email.com",
  *       "agreeToTerms": true,
- *       "emailVerified": true
+ *       "emailVerified": true,
+ *       "signupSource": "web"
  *     }
  *
  * @apiUse InternalServerError
@@ -118,12 +123,12 @@ func PostUser(w rest.ResponseWriter, r *rest.Request) {
 
 /**
  * @api {put} /user Modify User
- * @apiVersion 1.0.0
+ * @apiVersion 1.0.1
  * @apiName PutUser
  * @apiGroup User
  *
  * @apiHeader {String} Authorization HTTP Basic Auth
- * @apiHeader {String} Accept-Version ^1.0.0 semver versioning
+ * @apiHeader {String} Accept-Version ^1.0.1 semver versioning
  *
  * @apiParam {String} password New password
  * @apiParam {String} code Password reset code. (Instead of Authorization header)
@@ -135,6 +140,7 @@ func PostUser(w rest.ResponseWriter, r *rest.Request) {
  * @apiSuccess {String} lastName  Last name of the User.
  * @apiSuccess {String} email Email of the User.
  * @apiSuccess {Boolean} emailVerified True if email has been verified.
+ * @apiSuccess {String} signupSource Identify signup source (android, ios, web)
  *
  * @apiSuccessExample Success-Response:
  *     HTTP/1.1 200 OK
@@ -146,7 +152,8 @@ func PostUser(w rest.ResponseWriter, r *rest.Request) {
  *       "lastName": "Doe",
  *       "email": "johndoe@email.com",
  *       "agreeToTerms": true,
- *       "emailVerified": true
+ *       "emailVerified": true,
+ *       "signupSource": "web"
  *     }
  *
  * @apiUse InternalServerError
@@ -197,11 +204,11 @@ func PutUser(w rest.ResponseWriter, r *rest.Request) {
 
 /**
  * @api {post} /user/verify Verify user email address
- * @apiVersion 1.0.0
+ * @apiVersion 1.0.1
  * @apiName VerifyUser
  * @apiGroup User
  *
- * @apiHeader {String} Accept-Version ^1.0.0 semver versioning
+ * @apiHeader {String} Accept-Version ^1.0.1 semver versioning
  *
  * @apiParam {String} code Email verification code
  *
@@ -231,11 +238,11 @@ func VerifyUser(w rest.ResponseWriter, r *rest.Request) {
 
 /**
  * @api {post} /user/reset-password Send reset password email
- * @apiVersion 1.0.0
+ * @apiVersion 1.0.1
  * @apiName ResetPassword
  * @apiGroup User
  *
- * @apiHeader {String} Accept-Version ^1.0.0 semver versioning
+ * @apiHeader {String} Accept-Version ^1.0.1 semver versioning
  *
  * @apiParam {String} email Email address for user
  *

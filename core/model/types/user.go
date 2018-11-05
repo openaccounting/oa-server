@@ -17,4 +17,5 @@ type User struct {
 	PasswordReset   string    `json:"-"`
 	EmailVerified   bool      `json:"emailVerified"`
 	EmailVerifyCode string    `json:"-"`
+	SignupSource    string    `json:"signupSource"`
 }

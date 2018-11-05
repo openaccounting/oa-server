@@ -31,7 +31,7 @@ func (mw *VersionMiddleware) MiddlewareFunc(handler rest.HandlerFunc) rest.Handl
 			rest.Error(writer, "Invalid version", http.StatusBadRequest)
 		}
 
-		serverVersion, _ := semver.NewVersion("1.0.0")
+		serverVersion, _ := semver.NewVersion("1.0.1")
 		// Pre-release versions
 		compatVersion, _ := semver.NewVersion("0.1.8")
 

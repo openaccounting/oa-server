@@ -9,12 +9,12 @@ import (
 
 /**
  * @api {get} /apikeys Get API keys
- * @apiVersion 1.0.0
+ * @apiVersion 1.0.1
  * @apiName GetApiKeys
  * @apiGroup ApiKey
  *
  * @apiHeader {String} Authorization HTTP Basic Auth
- * @apiHeader {String} Accept-Version ^1.0.0 semver versioning
+ * @apiHeader {String} Accept-Version ^1.0.1 semver versioning
  *
  * @apiSuccess {String} id Id of the ApiKey.
  * @apiSuccess {Date} inserted Date ApiKey was created
@@ -52,11 +52,11 @@ func GetApiKeys(w rest.ResponseWriter, r *rest.Request) {
 
 /**
  * @api {post} /apikeys Create a new API key
- * @apiVersion 1.0.0
+ * @apiVersion 1.0.1
  * @apiName PostApiKey
  * @apiGroup ApiKey
  *
- * @apiHeader {String} Accept-Version ^1.0.0 semver versioning
+ * @apiHeader {String} Accept-Version ^1.0.1 semver versioning
  * @apiHeader {String} Authorization HTTP Basic Auth
  *
  * @apiParam {String} id 32 character hex string
@@ -105,11 +105,11 @@ func PostApiKey(w rest.ResponseWriter, r *rest.Request) {
 
 /**
  * @api {put} /apikeys Modify an API key
- * @apiVersion 1.0.0
+ * @apiVersion 1.0.1
  * @apiName PutApiKey
  * @apiGroup ApiKey
  *
- * @apiHeader {String} Accept-Version ^1.0.0 semver versioning
+ * @apiHeader {String} Accept-Version ^1.0.1 semver versioning
  * @apiHeader {String} Authorization HTTP Basic Auth
  *
  * @apiParam {String} id 32 character hex string
@@ -160,12 +160,12 @@ func PutApiKey(w rest.ResponseWriter, r *rest.Request) {
 
 /**
  * @api {delete} /apikeys/:apiKeyId Delete an API key
- * @apiVersion 1.0.0
+ * @apiVersion 1.0.1
  * @apiName DeleteApiKey
  * @apiGroup ApiKey
  *
  * @apiHeader {String} Authorization HTTP Basic Auth
- * @apiHeader {String} Accept-Version ^1.0.0 semver versioning
+ * @apiHeader {String} Accept-Version ^1.0.1 semver versioning
  *
  * @apiSuccessExample Success-Response:
  *     HTTP/1.1 200 OK

@@ -5,6 +5,14 @@ import (
 )
 
 /**
+ * Changelog
+ *
+ * 1.0.1
+ * - add user.signupSource
+ *
+ */
+
+/**
  * @apiDefine NotAuthorizedError
  *
  * @apiError NotAuthorized API request does not have proper credentials

@@ -8,7 +8,7 @@ import (
 	"time"
 )
 
-const userFields = "LOWER(HEX(u.id)),u.inserted,u.updated,u.firstName,u.lastName,u.email,u.passwordHash,u.agreeToTerms,u.passwordReset,u.emailVerified,u.emailVerifyCode"
+const userFields = "LOWER(HEX(u.id)),u.inserted,u.updated,u.firstName,u.lastName,u.email,u.passwordHash,u.agreeToTerms,u.passwordReset,u.emailVerified,u.emailVerifyCode,u.signupSource"
 
 type UserInterface interface {
 	InsertUser(*types.User) error
@@ -28,7 +28,7 @@ func (db *DB) InsertUser(user *types.User) error {
 	user.Updated = user.Inserted
 	user.PasswordReset = ""
 
-	query := "INSERT INTO user(id,inserted,updated,firstName,lastName,email,passwordHash,agreeToTerms,passwordReset,emailVerified,emailVerifyCode) VALUES(UNHEX(?),?,?,?,?,?,?,?,?,?,?)"
+	query := "INSERT INTO user(id,inserted,updated,firstName,lastName,email,passwordHash,agreeToTerms,passwordReset,emailVerified,emailVerifyCode,signupSource) VALUES(UNHEX(?),?,?,?,?,?,?,?,?,?,?,?)"
 	res, err := db.Exec(
 		query,
 		user.Id,
@@ -42,6 +42,7 @@ func (db *DB) InsertUser(user *types.User) error {
 		user.PasswordReset,
 		user.EmailVerified,
 		user.EmailVerifyCode,
+		user.SignupSource,
 	)
 	if err != nil {
 		return err
@@ -229,6 +230,7 @@ func (db *DB) unmarshalUser(row *sql.Row) (*types.User, error) {
 		&u.PasswordReset,
 		&u.EmailVerified,
 		&u.EmailVerifyCode,
+		&u.SignupSource,
 	)
 
 	if err != nil {
@@ -263,6 +265,7 @@ func (db *DB) unmarshalUsers(rows *sql.Rows) ([]*types.User, error) {
 			&u.PasswordReset,
 			&u.EmailVerified,
 			&u.EmailVerifyCode,
+			&u.SignupSource,
 		)
 
 		if err != nil {
