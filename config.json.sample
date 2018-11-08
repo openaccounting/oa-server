@@ -1,7 +1,7 @@
 {
   "WebUrl": "https://domain.com",
   "Port": 8080,
-  "ApiPrefix": "/api",
+  "ApiPrefix": "",
   "KeyFile": "",
   "CertFile": "",
   "Database": "openaccounting",
