@@ -33,7 +33,7 @@ func GetRouter(auth *AuthMiddleware, prefix string) (rest.App, error) {
 		rest.Get(prefix + "/orgs/:orgId/prices", auth.RequireAuth(GetPrices)),
 		rest.Post(prefix + "/orgs/:orgId/prices", auth.RequireAuth(PostPrice)),
 		rest.Delete(prefix + "/orgs/:orgId/prices/:priceId", auth.RequireAuth(DeletePrice)),
-		rest.Get(prefix + "/ws", ws.Handler),
+		rest.Get("/ws", ws.Handler),
 		rest.Post(prefix + "/sessions", auth.RequireAuth(PostSession)),
 		rest.Delete(prefix + "/sessions/:sessionId", auth.RequireAuth(DeleteSession)),
 		rest.Get(prefix + "keys", auth.RequireAuth(GetApiKeys)),
