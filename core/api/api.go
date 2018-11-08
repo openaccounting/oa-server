@@ -34,7 +34,7 @@ import (
  *
  */
 
-func Init() (*rest.Api, error) {
+func Init(prefix string) (*rest.Api, error) {
 	rest.ErrorFieldName = "error"
 	app := rest.NewApi()
 
@@ -74,7 +74,7 @@ func Init() (*rest.Api, error) {
 	app.Use(auth)
 	app.Use(version)
 
-	router, err := GetRouter(auth)
+	router, err := GetRouter(auth, prefix)
 	if err != nil {
 		return nil, err
 	}

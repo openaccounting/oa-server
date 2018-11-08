@@ -3,6 +3,7 @@ package types
 type Config struct {
 	WebUrl         string
 	Port           int
+	ApiPrefix      string
 	KeyFile        string
 	CertFile       string
 	Database       string

@@ -40,7 +40,7 @@ func main() {
 	model.NewModel(db, bc, config)
 	auth.NewAuthService(db, bc)
 
-	app, err := api.Init()
+	app, err := api.Init(config.ApiPrefix)
 
 	if err != nil {
 		log.Fatal(err)
