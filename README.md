@@ -20,3 +20,7 @@ Copy config.json.sample to config.json and edit to match your information.
 ## Build
 
 `go build core/server.go`
+
+## Help
+
+[Join our Slack chatroom](https://openaccounting.slack.com/signup) and talk with us!
