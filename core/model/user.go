@@ -7,6 +7,7 @@ import (
 	"github.com/sendgrid/sendgrid-go"
 	"github.com/sendgrid/sendgrid-go/helpers/mail"
 	"log"
+	"regexp"
 )
 
 type UserInterface interface {
@@ -32,6 +33,12 @@ func (model *Model) CreateUser(user *types.User) error {
 
 	if user.Email == "" {
 		return errors.New("email required")
+	}
+
+	re := regexp.MustCompile(".+@.+\\..+")
+
+	if re.FindString(user.Email) == "" {
+		return errors.New("invalid email address")
 	}
 
 	if user.Password == "" {
