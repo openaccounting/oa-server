@@ -63,6 +63,9 @@ func (db *DB) Escape(sql string) string {
 			break
 		case '\032': /* This gives problems on Win32 */
 			escape = 'Z'
+			break
+		case '%':
+			escape = '%'
 		}
 
 		if escape != 0 {

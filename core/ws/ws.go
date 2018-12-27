@@ -183,6 +183,7 @@ func unsubscribe(conn *websocket.Conn, key string, clientMap map[string][]*webso
 }
 
 func unsubscribeAll(conn *websocket.Conn) {
+	// TODO fix "concurrent map iteration and map write" error
 	for key, conns := range txSubscriptions {
 		newConns := conns[:0]
 		for _, c := range conns {
