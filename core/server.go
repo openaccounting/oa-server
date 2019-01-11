@@ -2,6 +2,7 @@ package main
 
 import (
 	"encoding/json"
+	"fmt"
 	"log"
 	"net/http"
 	"os"
@@ -13,7 +14,6 @@ import (
 	"github.com/openaccounting/oa-server/core/model/db"
 	"github.com/openaccounting/oa-server/core/model/types"
 	"github.com/openaccounting/oa-server/core/util"
-	//"fmt"
 )
 
 func main() {
@@ -22,14 +22,14 @@ func main() {
 	file, err := os.Open("./config.json")
 
 	if err != nil {
-		log.Fatal(err)
+		log.Fatal(fmt.Errorf("failed to open ./config.json with " + err.Error()))
 	}
 
 	decoder := json.NewDecoder(file)
 	err = decoder.Decode(&config)
 
 	if err != nil {
-		log.Fatal(err)
+		log.Fatal(fmt.Errorf("failed to decode ./config.json with " + err.Error()))
 	}
 
 	connectionString := config.User + ":" + config.Password + "@" + config.DatabaseAddress + "/" + config.Database
