@@ -48,9 +48,9 @@ func main() {
 	}
 
 	if config.CertFile == "" || config.KeyFile == "" {
-		err = http.ListenAndServe(":"+strconv.Itoa(config.Port), app.MakeHandler())
+		err = http.ListenAndServe(config.Address+":"+strconv.Itoa(config.Port), app.MakeHandler())
 	} else {
-		err = http.ListenAndServeTLS(":"+strconv.Itoa(config.Port), config.CertFile, config.KeyFile, app.MakeHandler())
+		err = http.ListenAndServeTLS(config.Address+":"+strconv.Itoa(config.Port), config.CertFile, config.KeyFile, app.MakeHandler())
 	}
 	log.Fatal(fmt.Errorf("failed to start server with: %s", err.Error()))
 }

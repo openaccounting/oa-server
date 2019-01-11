@@ -1,5 +1,6 @@
 {
   "WebUrl": "https://domain.com",
+  "Address": "",
   "Port": 8080,
   "ApiPrefix": "",
   "KeyFile": "",
