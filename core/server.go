@@ -35,6 +35,9 @@ func main() {
 	connectionString := config.User + ":" + config.Password + "@" + config.DatabaseAddress + "/" + config.Database
 
 	db, err := db.NewDB(connectionString)
+	if err != nil {
+		log.Fatal(fmt.Errorf("failed to connect to database with: %s", err.Error()))
+	}
 
 	bc := &util.StandardBcrypt{}
 
@@ -42,7 +45,6 @@ func main() {
 	auth.NewAuthService(db, bc)
 
 	app, err := api.Init(config.ApiPrefix)
-
 	if err != nil {
 		log.Fatal(fmt.Errorf("failed to create api instance with: %s", err.Error()))
 	}
