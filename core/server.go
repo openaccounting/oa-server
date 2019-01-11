@@ -47,6 +47,10 @@ func main() {
 		log.Fatal(fmt.Errorf("failed to create api instance with: %s", err.Error()))
 	}
 
-	err = http.ListenAndServeTLS(":"+strconv.Itoa(config.Port), config.CertFile, config.KeyFile, app.MakeHandler())
+	if config.CertFile == "" || config.KeyFile == "" {
+		err = http.ListenAndServe(":"+strconv.Itoa(config.Port), app.MakeHandler())
+	} else {
+		err = http.ListenAndServeTLS(":"+strconv.Itoa(config.Port), config.CertFile, config.KeyFile, app.MakeHandler())
+	}
 	log.Fatal(fmt.Errorf("failed to start server with: %s", err.Error()))
 }
