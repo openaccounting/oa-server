@@ -4,6 +4,7 @@
   "ApiPrefix": "",
   "KeyFile": "",
   "CertFile": "",
+  "DatabaseAddress": "",
   "Database": "openaccounting",
   "User": "openaccounting",
   "Password": "openaccounting",

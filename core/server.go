@@ -2,16 +2,17 @@ package main
 
 import (
 	"encoding/json"
+	"log"
+	"net/http"
+	"os"
+	"strconv"
+
 	"github.com/openaccounting/oa-server/core/api"
 	"github.com/openaccounting/oa-server/core/auth"
 	"github.com/openaccounting/oa-server/core/model"
 	"github.com/openaccounting/oa-server/core/model/db"
 	"github.com/openaccounting/oa-server/core/model/types"
 	"github.com/openaccounting/oa-server/core/util"
-	"log"
-	"net/http"
-	"os"
-	"strconv"
 	//"fmt"
 )
 
@@ -31,7 +32,7 @@ func main() {
 		log.Fatal(err)
 	}
 
-	connectionString := config.User + ":" + config.Password + "@/" + config.Database
+	connectionString := config.User + ":" + config.Password + "@" + config.DatabaseAddress + "/" + config.Database
 
 	db, err := db.NewDB(connectionString)
 
