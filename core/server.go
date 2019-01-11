@@ -22,14 +22,14 @@ func main() {
 	file, err := os.Open("./config.json")
 
 	if err != nil {
-		log.Fatal(fmt.Errorf("failed to open ./config.json with " + err.Error()))
+		log.Fatal(fmt.Errorf("failed to open ./config.json with: %s", err.Error()))
 	}
 
 	decoder := json.NewDecoder(file)
 	err = decoder.Decode(&config)
 
 	if err != nil {
-		log.Fatal(fmt.Errorf("failed to decode ./config.json with " + err.Error()))
+		log.Fatal(fmt.Errorf("failed to decode ./config.json with: %s", err.Error()))
 	}
 
 	connectionString := config.User + ":" + config.Password + "@" + config.DatabaseAddress + "/" + config.Database
@@ -44,8 +44,9 @@ func main() {
 	app, err := api.Init(config.ApiPrefix)
 
 	if err != nil {
-		log.Fatal(err)
+		log.Fatal(fmt.Errorf("failed to create api instance with: %s", err.Error()))
 	}
 
-	log.Fatal(http.ListenAndServeTLS(":"+strconv.Itoa(config.Port), config.CertFile, config.KeyFile, app.MakeHandler()))
+	err = http.ListenAndServeTLS(":"+strconv.Itoa(config.Port), config.CertFile, config.KeyFile, app.MakeHandler())
+	log.Fatal(fmt.Errorf("failed to start server with: %s", err.Error()))
 }
