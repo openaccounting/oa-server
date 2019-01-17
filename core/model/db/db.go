@@ -18,6 +18,7 @@ type Datastore interface {
 	PriceInterface
 	SessionInterface
 	ApiKeyInterface
+	SystemHealthInteface
 }
 
 func NewDB(dataSourceName string) (*DB, error) {

@@ -44,5 +44,6 @@ func GetRouter(auth *AuthMiddleware, prefix string) (rest.App, error) {
 		rest.Post(prefix+"/orgs/:orgId/invites", auth.RequireAuth(PostInvite)),
 		rest.Put(prefix+"/orgs/:orgId/invites/:inviteId", auth.RequireAuth(PutInvite)),
 		rest.Delete(prefix+"/orgs/:orgId/invites/:inviteId", auth.RequireAuth(DeleteInvite)),
+		rest.Get(prefix+"/health-check", GetSystemHealthStatus),
 	)
 }
