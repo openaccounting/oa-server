@@ -22,6 +22,7 @@ type Interface interface {
 	PriceInterface
 	SessionInterface
 	ApiKeyInterface
+	SystemHealthInteface
 }
 
 func NewModel(db db.Datastore, bcrypt util.Bcrypt, config types.Config) *Model {
