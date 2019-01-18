@@ -7,7 +7,7 @@ import (
 
 /**
  * @api {get} /health-check Get system health status
- * @apiVersion 1.0.1
+ * @apiVersion 1.1.0
  * @apiName GetSystemHealthStatus
  * @apiGroup SystemHealth
  *
