@@ -14,7 +14,7 @@ import (
 	"sync"
 )
 
-const version = "1.1.0"
+const version = "1.2.0"
 
 //var upgrader = websocket.Upgrader{} // use default options
 var txSubscriptions = make(map[string][]*websocket.Conn)
