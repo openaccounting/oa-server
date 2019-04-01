@@ -7,6 +7,9 @@ import (
 /**
  * Changelog
  *
+ * 1.2.0
+ * - add `GET /orgs/:orgId/accounts/:accountId
+ *
  * 1.1.0
  * - add `GET /health-check`
  *

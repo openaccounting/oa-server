@@ -22,6 +22,7 @@ func GetRouter(auth *AuthMiddleware, prefix string) (rest.App, error) {
 		rest.Delete(prefix+"/orgs/:orgId/ledgers/:accountId", auth.RequireAuth(DeleteAccount)),
 		rest.Get(prefix+"/orgs/:orgId/ledgers/:accountId/transactions", auth.RequireAuth(GetTransactionsByAccount)),
 		rest.Get(prefix+"/orgs/:orgId/accounts", auth.RequireAuth(GetOrgAccounts)),
+		rest.Get(prefix+"/orgs/:orgId/accounts/:accountId", auth.RequireAuth(GetOrgAccount)),
 		rest.Post(prefix+"/orgs/:orgId/accounts", auth.RequireAuth(PostAccount)),
 		rest.Put(prefix+"/orgs/:orgId/accounts/:accountId", auth.RequireAuth(PutAccount)),
 		rest.Delete(prefix+"/orgs/:orgId/accounts/:accountId", auth.RequireAuth(DeleteAccount)),

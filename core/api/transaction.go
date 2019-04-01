@@ -9,12 +9,12 @@ import (
 
 /**
  * @api {get} /orgs/:orgId/accounts/:accountId/transactions Get Transactions by Account Id
- * @apiVersion 1.1.0
+ * @apiVersion 1.2.0
  * @apiName GetAccountTransactions
  * @apiGroup Transaction
  *
  * @apiHeader {String} Authorization HTTP Basic Auth
- * @apiHeader {String} Accept-Version ^1.1.0 semver versioning
+ * @apiHeader {String} Accept-Version ^1.2.0 semver versioning
  *
  * @apiSuccess {String} id Id of the Transaction.
  * @apiSuccess {String} orgId Id of the Org.
@@ -85,12 +85,12 @@ func GetTransactionsByAccount(w rest.ResponseWriter, r *rest.Request) {
 
 /**
  * @api {get} /orgs/:orgId/transactions Get Transactions by Org Id
- * @apiVersion 1.1.0
+ * @apiVersion 1.2.0
  * @apiName GetOrgTransactions
  * @apiGroup Transaction
  *
  * @apiHeader {String} Authorization HTTP Basic Auth
- * @apiHeader {String} Accept-Version ^1.1.0 semver versioning
+ * @apiHeader {String} Accept-Version ^1.2.0 semver versioning
  *
  * @apiSuccess {String} id Id of the Transaction.
  * @apiSuccess {String} orgId Id of the Org.
@@ -160,12 +160,12 @@ func GetTransactionsByOrg(w rest.ResponseWriter, r *rest.Request) {
 
 /**
  * @api {post} /orgs/:orgId/transactions Create a new Transaction
- * @apiVersion 1.1.0
+ * @apiVersion 1.2.0
  * @apiName PostTransaction
  * @apiGroup Transaction
  *
  * @apiHeader {String} Authorization HTTP Basic Auth
- * @apiHeader {String} Accept-Version ^1.1.0 semver versioning
+ * @apiHeader {String} Accept-Version ^1.2.0 semver versioning
  *
  * @apiParam {String} id Id 32 character hex string
  * @apiParam {Date} date Date of the Transaction
@@ -246,12 +246,12 @@ func PostTransaction(w rest.ResponseWriter, r *rest.Request) {
 
 /**
  * @api {put} /orgs/:orgId/transactions/:transactionId Modify a Transaction
- * @apiVersion 1.1.0
+ * @apiVersion 1.2.0
  * @apiName PutTransaction
  * @apiGroup Transaction
  *
  * @apiHeader {String} Authorization HTTP Basic Auth
- * @apiHeader {String} Accept-Version ^1.1.0 semver versioning
+ * @apiHeader {String} Accept-Version ^1.2.0 semver versioning
  *
  * @apiParam {String} id 32 character hex string
  * @apiParam {Date} date Date of the Transaction
@@ -333,12 +333,12 @@ func PutTransaction(w rest.ResponseWriter, r *rest.Request) {
 
 /**
  * @api {delete} /orgs/:orgId/transactions/:transactionId Delete a Transaction
- * @apiVersion 1.1.0
+ * @apiVersion 1.2.0
  * @apiName DeleteTransaction
  * @apiGroup Transaction
  *
  * @apiHeader {String} Authorization HTTP Basic Auth
- * @apiHeader {String} Accept-Version ^1.1.0 semver versioning
+ * @apiHeader {String} Accept-Version ^1.2.0 semver versioning
  *
  * @apiSuccessExample Success-Response:
  *     HTTP/1.1 200 OK

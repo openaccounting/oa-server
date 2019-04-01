@@ -2,23 +2,24 @@ package api
 
 import (
 	"encoding/json"
-	"github.com/ant0ine/go-json-rest/rest"
-	"github.com/openaccounting/oa-server/core/model"
-	"github.com/openaccounting/oa-server/core/model/types"
 	"io/ioutil"
 	"net/http"
 	"strconv"
 	"time"
+
+	"github.com/ant0ine/go-json-rest/rest"
+	"github.com/openaccounting/oa-server/core/model"
+	"github.com/openaccounting/oa-server/core/model/types"
 )
 
 /**
  * @api {get} /orgs/:orgId/accounts Get Accounts by Org id
- * @apiVersion 1.1.0
+ * @apiVersion 1.2.0
  * @apiName GetOrgAccounts
  * @apiGroup Account
  *
  * @apiHeader {String} Authorization HTTP Basic Auth
- * @apiHeader {String} Accept-Version ^1.1.0 semver versioning
+ * @apiHeader {String} Accept-Version ^1.2.0 semver versioning
  *
  * @apiSuccess {String} id Id of the Account.
  * @apiSuccess {String} orgId Id of the Org.
@@ -84,13 +85,84 @@ func GetOrgAccounts(w rest.ResponseWriter, r *rest.Request) {
 }
 
 /**
+ * @api {get} /orgs/:orgId/accounts/:accountId Get Acount by Org id and Account id
+ * @apiVersion 1.2.0
+ * @apiName GetOrgAccount
+ * @apiGroup Account
+ *
+ * @apiHeader {String} Authorization HTTP Basic Auth
+ * @apiHeader {String} Accept-Version ^1.2.0 semver versioning
+ *
+ * @apiSuccess {String} id Id of the Account.
+ * @apiSuccess {String} orgId Id of the Org.
+ * @apiSuccess {Date} inserted Date Account was created
+ * @apiSuccess {Date} updated Date Account was updated
+ * @apiSuccess {String} name Name of the Account.
+ * @apiSuccess {String} parent Id of the parent Account.
+ * @apiSuccess {String} currency Three letter currency code.
+ * @apiSuccess {Number} precision How many digits the currency goes out to.
+ * @apiSuccess {Boolean} debitBalance True if Account has a debit balance.
+ * @apiSuccess {Number} balance Current Account balance in this Account's currency
+ * @apiSuccess {Number} nativeBalance Current Account balance in the Org's currency
+ *
+ * @apiSuccessExample Success-Response:
+ *     HTTP/1.1 200 OK
+ *     {
+ *       "id": "22222222222222222222222222222222",
+ *       "orgId": "11111111111111111111111111111111",
+ *       "inserted": "2018-09-11T18:05:04.420Z",
+ *       "updated": "2018-09-11T18:05:04.420Z",
+ *       "name": "Cash",
+ *       "parent": "11111111111111111111111111111111",
+ *       "currency": "USD",
+ *       "precision": 2,
+ *       "debitBalance": true,
+ *       "balance": 10000,
+ *       "nativeBalance": 10000
+ *    }
+ *
+ * @apiUse NotAuthorizedError
+ * @apiUse InternalServerError
+ */
+func GetOrgAccount(w rest.ResponseWriter, r *rest.Request) {
+	user := r.Env["USER"].(*types.User)
+	orgId := r.PathParam("orgId")
+	accountId := r.PathParam("accountId")
+
+	// TODO how do we make date an optional parameter
+	// instead of resorting to this hack?
+	date := time.Date(2100, time.January, 1, 0, 0, 0, 0, time.UTC)
+
+	dateParam := r.URL.Query().Get("date")
+
+	if dateParam != "" {
+		dateParamNumeric, err := strconv.ParseInt(dateParam, 10, 64)
+
+		if err != nil {
+			rest.Error(w, "invalid date", 400)
+			return
+		}
+		date = time.Unix(0, dateParamNumeric*1000000)
+	}
+
+	accounts, err := model.Instance.GetAccountWithBalance(orgId, accountId, user.Id, "", date)
+
+	if err != nil {
+		rest.Error(w, err.Error(), http.StatusInternalServerError)
+		return
+	}
+
+	w.WriteJson(&accounts)
+}
+
+/**
  * @api {post} /orgs/:orgId/accounts Create a new Account
- * @apiVersion 1.1.0
+ * @apiVersion 1.2.0
  * @apiName PostAccount
  * @apiGroup Account
  *
  * @apiHeader {String} Authorization HTTP Basic Auth
- * @apiHeader {String} Accept-Version ^1.1.0 semver versioning
+ * @apiHeader {String} Accept-Version ^1.2.0 semver versioning
  *
  * @apiParam {String} id Id 32 character hex string
  * @apiParam {String} name Name of the Account.
@@ -198,12 +270,12 @@ func PostAccounts(w rest.ResponseWriter, r *rest.Request, content []byte) {
 
 /**
  * @api {put} /orgs/:orgId/accounts/:accountId Modify an Account
- * @apiVersion 1.1.0
+ * @apiVersion 1.2.0
  * @apiName PutAccount
  * @apiGroup Account
  *
  * @apiHeader {String} Authorization HTTP Basic Auth
- * @apiHeader {String} Accept-Version ^1.1.0 semver versioning
+ * @apiHeader {String} Accept-Version ^1.2.0 semver versioning
  *
  * @apiParam {String} id Id 32 character hex string
  * @apiParam {String} name Name of the Account.
@@ -273,12 +345,12 @@ func PutAccount(w rest.ResponseWriter, r *rest.Request) {
 
 /**
  * @api {delete} /orgs/:orgId/accounts/:accountId Delete an Account
- * @apiVersion 1.1.0
+ * @apiVersion 1.2.0
  * @apiName DeleteAccount
  * @apiGroup Account
  *
  * @apiHeader {String} Authorization HTTP Basic Auth
- * @apiHeader {String} Accept-Version ^1.1.0 semver versioning
+ * @apiHeader {String} Accept-Version ^1.2.0 semver versioning
  *
  * @apiSuccessExample Success-Response:
  *     HTTP/1.1 200 OK

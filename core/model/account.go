@@ -3,10 +3,11 @@ package model
 import (
 	"errors"
 	"fmt"
-	"github.com/openaccounting/oa-server/core/model/types"
-	"github.com/openaccounting/oa-server/core/ws"
 	"sort"
 	"time"
+
+	"github.com/openaccounting/oa-server/core/model/types"
+	"github.com/openaccounting/oa-server/core/ws"
 )
 
 type AccountInterface interface {
@@ -15,6 +16,8 @@ type AccountInterface interface {
 	DeleteAccount(id string, userId string, orgId string) error
 	GetAccounts(orgId string, userId string, tokenId string) ([]*types.Account, error)
 	GetAccountsWithBalances(orgId string, userId string, tokenId string, date time.Time) ([]*types.Account, error)
+	GetAccount(orgId, accId, userId, tokenId string) (*types.Account, error)
+	GetAccountWithBalance(orgId, accId, userId, tokenId string, date time.Time) (*types.Account, error)
 }
 
 type ByName []*types.Account
@@ -253,12 +256,35 @@ func (model *Model) getAccounts(orgId string, userId string, tokenId string, dat
 	return filtered, nil
 }
 
+func (model *Model) getAccount(orgId, accId, userId, tokenId string, date time.Time, withBalances bool) (*types.Account, error) {
+	accounts, err := model.getAccounts(orgId, userId, tokenId, date, withBalances)
+	if err != nil {
+		return nil, err
+	}
+
+	for _, account := range accounts {
+		if account.Id == accId {
+			return account, nil
+		}
+	}
+
+	return nil, nil
+}
+
 func (model *Model) GetAccounts(orgId string, userId string, tokenId string) ([]*types.Account, error) {
 	return model.getAccounts(orgId, userId, tokenId, time.Time{}, false)
 }
 
 func (model *Model) GetAccountsWithBalances(orgId string, userId string, tokenId string, date time.Time) ([]*types.Account, error) {
 	return model.getAccounts(orgId, userId, tokenId, date, true)
+}
+
+func (model *Model) GetAccount(orgId, accId, userId, tokenId string) (*types.Account, error) {
+	return model.getAccount(orgId, accId, userId, tokenId, time.Time{}, false)
+}
+
+func (model *Model) GetAccountWithBalance(orgId, accId, userId, tokenId string, date time.Time) (*types.Account, error) {
+	return model.getAccount(orgId, accId, userId, tokenId, date, true)
 }
 
 func (model *Model) getAllAccounts(orgId string) ([]*types.Account, error) {
