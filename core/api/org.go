@@ -22,6 +22,7 @@ import (
  * @apiSuccess {String} name Name of the Org.
  * @apiSuccess {String} currency Three letter currency code.
  * @apiSuccess {Number} precision How many digits the currency goes out to.
+ * @apiSuccess {String} timezone Timezone to use for accounting.
  *
  * @apiSuccessExample Success-Response:
  *     HTTP/1.1 200 OK
@@ -32,6 +33,7 @@ import (
  *       "name": "MyOrg",
  *       "currency": "USD",
  *       "precision": 2,
+ *       "timezone": "America/New_York"
  *     }
  *
  * @apiUse NotAuthorizedError
@@ -66,6 +68,7 @@ func GetOrg(w rest.ResponseWriter, r *rest.Request) {
  * @apiSuccess {String} name Name of the Org.
  * @apiSuccess {String} currency Three letter currency code.
  * @apiSuccess {Number} precision How many digits the currency goes out to.
+ @apiSuccess {String} timezone Timezone to use for accounting.
  *
  * @apiSuccessExample Success-Response:
  *     HTTP/1.1 200 OK
@@ -77,6 +80,7 @@ func GetOrg(w rest.ResponseWriter, r *rest.Request) {
  *         "name": "MyOrg",
  *         "currency": "USD",
  *         "precision": 2,
+ *         "timezone": "America/New_York"
  *       }
  *     ]
  *
@@ -109,6 +113,7 @@ func GetOrgs(w rest.ResponseWriter, r *rest.Request) {
  * @apiParam {String} name Name of the Org.
  * @apiParam {String} currency Three letter currency code.
  * @apiParam {Number} precision How many digits the currency goes out to.
+ * @apiParam {String} timezone Timezone to use for accounting.
  *
  * @apiSuccess {String} id Id of the Org.
  * @apiSuccess {Date} inserted Date Org was created
@@ -116,6 +121,7 @@ func GetOrgs(w rest.ResponseWriter, r *rest.Request) {
  * @apiSuccess {String} name Name of the Org.
  * @apiSuccess {String} currency Three letter currency code.
  * @apiSuccess {Number} precision How many digits the currency goes out to.
+ * @apiSuccess {String} timezone Timezone to use for accounting.
  *
  * @apiSuccessExample Success-Response:
  *     HTTP/1.1 200 OK
@@ -126,6 +132,7 @@ func GetOrgs(w rest.ResponseWriter, r *rest.Request) {
  *       "name": "MyOrg",
  *       "currency": "USD",
  *       "precision": 2,
+ *       "timezone": "America/New_York"
  *     }
  *
  * @apiUse NotAuthorizedError
@@ -167,6 +174,7 @@ func PostOrg(w rest.ResponseWriter, r *rest.Request) {
  * @apiSuccess {String} name Name of the Org.
  * @apiSuccess {String} currency Three letter currency code.
  * @apiSuccess {Number} precision How many digits the currency goes out to.
+ * @apiSuccess {String} timezone Timezone to use for accounting.
  *
  * @apiSuccessExample Success-Response:
  *     HTTP/1.1 200 OK
@@ -177,6 +185,7 @@ func PostOrg(w rest.ResponseWriter, r *rest.Request) {
  *       "name": "MyOrg",
  *       "currency": "USD",
  *       "precision": 2,
+ *       "timezone": "America/New_York"
  *     }
  *
  * @apiUse NotAuthorizedError

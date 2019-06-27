@@ -11,4 +11,5 @@ type Org struct {
 	Name      string    `json:"name"`
 	Currency  string    `json:"currency"`
 	Precision int       `json:"precision"`
+	Timezone  string    `json:"timezone"`
 }
