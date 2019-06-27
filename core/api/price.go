@@ -11,12 +11,12 @@ import (
 
 /**
  * @api {get} /org/:orgId/prices Get prices nearest in time or by currency
- * @apiVersion 1.2.0
+ * @apiVersion 1.3.0
  * @apiName GetPrices
  * @apiGroup Price
  *
  * @apiHeader {String} Authorization HTTP Basic Auth
- * @apiHeader {String} Accept-Version ^1.2.0 semver versioning
+ * @apiHeader {String} Accept-Version ^1.3.0 semver versioning
  *
  * @apiParam {Number} nearestDate Milliseconds since epoch
  * @apiParam {String} currency Currency code
@@ -93,12 +93,12 @@ func GetPrices(w rest.ResponseWriter, r *rest.Request) {
 
 /**
  * @api {post} /orgs/:orgId/prices Create a new Price
- * @apiVersion 1.2.0
+ * @apiVersion 1.3.0
  * @apiName PostPrice
  * @apiGroup Price
  *
  * @apiHeader {String} Authorization HTTP Basic Auth
- * @apiHeader {String} Accept-Version ^1.2.0 semver versioning
+ * @apiHeader {String} Accept-Version ^1.3.0 semver versioning
  *
  * @apiParam {String} id Id 32 character hex string.
  * @apiParam {String} orgId Id of the Org.
@@ -155,12 +155,12 @@ func PostPrice(w rest.ResponseWriter, r *rest.Request) {
 
 /**
  * @api {delete} /orgs/:orgId/prices/:priceId Delete a Price
- * @apiVersion 1.2.0
+ * @apiVersion 1.3.0
  * @apiName DeletePrice
  * @apiGroup Price
  *
  * @apiHeader {String} Authorization HTTP Basic Auth
- * @apiHeader {String} Accept-Version ^1.2.0 semver versioning
+ * @apiHeader {String} Accept-Version ^1.3.0 semver versioning
  *
  * @apiSuccessExample Success-Response:
  *     HTTP/1.1 200 OK

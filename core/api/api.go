@@ -7,6 +7,9 @@ import (
 /**
  * Changelog
  *
+ * 1.3.0
+ * - add org.timezone
+ *
  * 1.2.0
  * - add `GET /orgs/:orgId/accounts/:accountId
  *
