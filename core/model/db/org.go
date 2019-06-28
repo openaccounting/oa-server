@@ -21,7 +21,7 @@ type OrgInterface interface {
 	DeleteInvite(string) error
 }
 
-const orgFields = "LOWER(HEX(o.id)),o.inserted,o.updated,o.name,o.currency,o.`precision`"
+const orgFields = "LOWER(HEX(o.id)),o.inserted,o.updated,o.name,o.currency,o.`precision`,o.timezone"
 const inviteFields = "i.id,LOWER(HEX(i.orgId)),i.inserted,i.updated,i.email,i.accepted"
 
 func (db *DB) CreateOrg(org *types.Org, userId string, accounts []*types.Account) (err error) {
@@ -46,7 +46,7 @@ func (db *DB) CreateOrg(org *types.Org, userId string, accounts []*types.Account
 	org.Updated = org.Inserted
 
 	// create org
-	query1 := "INSERT INTO org(id,inserted,updated,name,currency,`precision`) VALUES(UNHEX(?),?,?,?,?,?)"
+	query1 := "INSERT INTO org(id,inserted,updated,name,currency,`precision`,timezone) VALUES(UNHEX(?),?,?,?,?,?,?)"
 
 	res, err := tx.Exec(
 		query1,
@@ -56,6 +56,7 @@ func (db *DB) CreateOrg(org *types.Org, userId string, accounts []*types.Account
 		org.Name,
 		org.Currency,
 		org.Precision,
+		org.Timezone,
 	)
 
 	if err != nil {
@@ -126,11 +127,12 @@ func (db *DB) CreateOrg(org *types.Org, userId string, accounts []*types.Account
 func (db *DB) UpdateOrg(org *types.Org) error {
 	org.Updated = time.Now()
 
-	query := "UPDATE org SET updated = ?, name = ? WHERE id = UNHEX(?)"
+	query := "UPDATE org SET updated = ?, name = ?, timezone = ? WHERE id = UNHEX(?)"
 	_, err := db.Exec(
 		query,
 		util.TimeToMs(org.Updated),
 		org.Name,
+		org.Timezone,
 		org.Id,
 	)
 
@@ -143,7 +145,7 @@ func (db *DB) GetOrg(orgId string, userId string) (*types.Org, error) {
 	var updated int64
 
 	err := db.QueryRow("SELECT "+orgFields+" FROM org o JOIN userorg ON userorg.orgId = o.id WHERE o.id = UNHEX(?) AND userorg.userId = UNHEX(?)", orgId, userId).
-		Scan(&o.Id, &inserted, &updated, &o.Name, &o.Currency, &o.Precision)
+		Scan(&o.Id, &inserted, &updated, &o.Name, &o.Currency, &o.Precision, &o.Timezone)
 
 	switch {
 	case err == sql.ErrNoRows:
@@ -173,7 +175,7 @@ func (db *DB) GetOrgs(userId string) ([]*types.Org, error) {
 		var inserted int64
 		var updated int64
 
-		err = rows.Scan(&o.Id, &inserted, &updated, &o.Name, &o.Currency, &o.Precision)
+		err = rows.Scan(&o.Id, &inserted, &updated, &o.Name, &o.Currency, &o.Precision, &o.Timezone)
 		if err != nil {
 			return nil, err
 		}
