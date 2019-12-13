@@ -23,6 +23,7 @@ var priceSubscriptions = make(map[string][]*websocket.Conn)
 var userMap = make(map[*websocket.Conn]*types.User)
 var sequenceNumbers = make(map[*websocket.Conn]int)
 var locks = make(map[*websocket.Conn]*sync.Mutex)
+var rwLock = sync.RWMutex{}
 
 type Message struct {
 	Version        string      `json:"version"`
@@ -158,6 +159,9 @@ func processMessage(message Message, conn *websocket.Conn) error {
 }
 
 func subscribe(conn *websocket.Conn, key string, clientMap map[string][]*websocket.Conn) {
+	rwLock.Lock()
+	defer rwLock.Unlock()
+
 	conns := clientMap[key]
 	alreadySubscribed := false
 
@@ -173,8 +177,8 @@ func subscribe(conn *websocket.Conn, key string, clientMap map[string][]*websock
 }
 
 func unsubscribe(conn *websocket.Conn, key string, clientMap map[string][]*websocket.Conn) {
-	locks[conn].Lock()
-	defer locks[conn].Unlock()
+	rwLock.Lock()
+	defer rwLock.Unlock()
 
 	newConns := clientMap[key][:0]
 
@@ -186,7 +190,8 @@ func unsubscribe(conn *websocket.Conn, key string, clientMap map[string][]*webso
 }
 
 func unsubscribeAll(conn *websocket.Conn) {
-	locks[conn].Lock()
+	rwLock.Lock()
+	defer rwLock.Unlock()
 
 	for key, conns := range txSubscriptions {
 		newConns := conns[:0]
@@ -224,6 +229,9 @@ func unsubscribeAll(conn *websocket.Conn) {
 }
 
 func PushTransaction(transaction *types.Transaction, userIds []string, action string) {
+	rwLock.RLock()
+	rwLock.RUnlock()
+
 	log.Println(txSubscriptions)
 
 	message := Message{version, -1, "transaction", action, transaction}
@@ -242,6 +250,9 @@ func PushTransaction(transaction *types.Transaction, userIds []string, action st
 }
 
 func PushAccount(account *types.Account, userIds []string, action string) {
+	rwLock.RLock()
+	rwLock.RUnlock()
+
 	message := Message{version, -1, "account", action, account}
 
 	for _, userId := range userIds {
@@ -258,6 +269,9 @@ func PushAccount(account *types.Account, userIds []string, action string) {
 }
 
 func PushPrice(price *types.Price, userIds []string, action string) {
+	rwLock.RLock()
+	rwLock.RUnlock()
+
 	message := Message{version, -1, "price", action, price}
 
 	for _, userId := range userIds {
