@@ -91,6 +91,17 @@ func (model *Model) UpdateAccount(account *types.Account, userId string) (err er
 		return errors.New("account cannot be its own parent")
 	}
 
+	// don't allow setting parent that has transactions
+	count, err := model.db.GetSplitCountByAccountId(account.Parent)
+
+	if err != nil {
+		return
+	}
+
+	if count != 0 {
+		return errors.New("cannot set parent to account with transactions")
+	}
+
 	userAccounts, err := model.GetAccounts(account.OrgId, userId, "")
 
 	if err != nil {
@@ -99,6 +110,16 @@ func (model *Model) UpdateAccount(account *types.Account, userId string) (err er
 
 	if !model.accountsContainWriteAccess(userAccounts, account.Parent) {
 		return errors.New(fmt.Sprintf("%s %s", "user does not have permission to access account", account.Parent))
+	}
+
+	// make sure parent is not a descendant of account
+	accountMap := model.makeAccountMap(userAccounts)
+	children := model.getChildren(account.Id, accountMap)
+
+	for _, childAccount := range children {
+		if childAccount.Id == account.Parent {
+			return errors.New("cannot set parent to descendant account")
+		}
 	}
 
 	err = model.db.UpdateAccount(account)
