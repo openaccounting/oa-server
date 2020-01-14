@@ -7,6 +7,11 @@ import (
 /**
  * Changelog
  *
+ * 1.4.0
+ * - add `GET /orgs/:orgId/budget`
+ * - add `POST /orgs/:orgId/budget`
+ * - add `DELETE /orgs/:orgId/budget`
+ *
  * 1.3.0
  * - add org.timezone
  *
