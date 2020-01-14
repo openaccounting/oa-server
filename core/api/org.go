@@ -54,39 +54,39 @@ func GetOrg(w rest.ResponseWriter, r *rest.Request) {
 }
 
 /**
- * @api {get} /orgs Get a User's Orgs
- * @apiVersion 1.4.0
- * @apiName GetOrgs
- * @apiGroup Org
- *
- * @apiHeader {String} Authorization HTTP Basic Auth
- * @apiHeader {String} Accept-Version ^1.4.0 semver versioning
- *
- * @apiSuccess {String} id Id of the Org.
- * @apiSuccess {Date} inserted Date Org was created
- * @apiSuccess {Date} updated Date Org was updated
- * @apiSuccess {String} name Name of the Org.
- * @apiSuccess {String} currency Three letter currency code.
- * @apiSuccess {Number} precision How many digits the currency goes out to.
- @apiSuccess {String} timezone Timezone to use for accounting.
- *
- * @apiSuccessExample Success-Response:
- *     HTTP/1.1 200 OK
- *     [
- *       {
- *         "id": "11111111111111111111111111111111",
- *         "inserted": "2018-09-11T18:05:04.420Z",
- *         "updated": "2018-09-11T18:05:04.420Z",
- *         "name": "MyOrg",
- *         "currency": "USD",
- *         "precision": 2,
- *         "timezone": "America/New_York"
- *       }
- *     ]
- *
- * @apiUse NotAuthorizedError
- * @apiUse InternalServerError
- */
+* @api {get} /orgs Get a User's Orgs
+* @apiVersion 1.4.0
+* @apiName GetOrgs
+* @apiGroup Org
+*
+* @apiHeader {String} Authorization HTTP Basic Auth
+* @apiHeader {String} Accept-Version ^1.4.0 semver versioning
+*
+* @apiSuccess {String} id Id of the Org.
+* @apiSuccess {Date} inserted Date Org was created
+* @apiSuccess {Date} updated Date Org was updated
+* @apiSuccess {String} name Name of the Org.
+* @apiSuccess {String} currency Three letter currency code.
+* @apiSuccess {Number} precision How many digits the currency goes out to.
+@apiSuccess {String} timezone Timezone to use for accounting.
+*
+* @apiSuccessExample Success-Response:
+*     HTTP/1.1 200 OK
+*     [
+*       {
+*         "id": "11111111111111111111111111111111",
+*         "inserted": "2018-09-11T18:05:04.420Z",
+*         "updated": "2018-09-11T18:05:04.420Z",
+*         "name": "MyOrg",
+*         "currency": "USD",
+*         "precision": 2,
+*         "timezone": "America/New_York"
+*       }
+*     ]
+*
+* @apiUse NotAuthorizedError
+* @apiUse InternalServerError
+*/
 func GetOrgs(w rest.ResponseWriter, r *rest.Request) {
 	user := r.Env["USER"].(*types.User)
 

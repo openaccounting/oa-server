@@ -77,17 +77,17 @@ func (db *DB) InsertAndReplaceBudget(budget *types.Budget) (err error) {
 		}
 	}()
 
-		// delete previous budget
-		query1 := "DELETE FROM budgetitem WHERE orgId = UNHEX(?)"
+	// delete previous budget
+	query1 := "DELETE FROM budgetitem WHERE orgId = UNHEX(?)"
 
-		_, err = dbTx.Exec(
-			query1,
-			budget.OrgId,
-		)
-	
-		if err != nil {
-			return
-		}
+	_, err = dbTx.Exec(
+		query1,
+		budget.OrgId,
+	)
+
+	if err != nil {
+		return
+	}
 
 	// save items
 	for _, item := range budget.Items {
