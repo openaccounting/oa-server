@@ -23,6 +23,7 @@ type Interface interface {
 	SessionInterface
 	ApiKeyInterface
 	SystemHealthInteface
+	BudgetInterface
 }
 
 func NewModel(db db.Datastore, bcrypt util.Bcrypt, config types.Config) *Model {

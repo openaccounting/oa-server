@@ -9,12 +9,12 @@ import (
 
 /**
  * @api {get} /org/:orgId Get Org by id
- * @apiVersion 1.3.0
+ * @apiVersion 1.4.0
  * @apiName GetOrg
  * @apiGroup Org
  *
  * @apiHeader {String} Authorization HTTP Basic Auth
- * @apiHeader {String} Accept-Version ^1.3.0 semver versioning
+ * @apiHeader {String} Accept-Version ^1.4.0 semver versioning
  *
  * @apiSuccess {String} id Id of the Org.
  * @apiSuccess {Date} inserted Date Org was created
@@ -54,39 +54,39 @@ func GetOrg(w rest.ResponseWriter, r *rest.Request) {
 }
 
 /**
- * @api {get} /orgs Get a User's Orgs
- * @apiVersion 1.3.0
- * @apiName GetOrgs
- * @apiGroup Org
- *
- * @apiHeader {String} Authorization HTTP Basic Auth
- * @apiHeader {String} Accept-Version ^1.3.0 semver versioning
- *
- * @apiSuccess {String} id Id of the Org.
- * @apiSuccess {Date} inserted Date Org was created
- * @apiSuccess {Date} updated Date Org was updated
- * @apiSuccess {String} name Name of the Org.
- * @apiSuccess {String} currency Three letter currency code.
- * @apiSuccess {Number} precision How many digits the currency goes out to.
- @apiSuccess {String} timezone Timezone to use for accounting.
- *
- * @apiSuccessExample Success-Response:
- *     HTTP/1.1 200 OK
- *     [
- *       {
- *         "id": "11111111111111111111111111111111",
- *         "inserted": "2018-09-11T18:05:04.420Z",
- *         "updated": "2018-09-11T18:05:04.420Z",
- *         "name": "MyOrg",
- *         "currency": "USD",
- *         "precision": 2,
- *         "timezone": "America/New_York"
- *       }
- *     ]
- *
- * @apiUse NotAuthorizedError
- * @apiUse InternalServerError
- */
+* @api {get} /orgs Get a User's Orgs
+* @apiVersion 1.4.0
+* @apiName GetOrgs
+* @apiGroup Org
+*
+* @apiHeader {String} Authorization HTTP Basic Auth
+* @apiHeader {String} Accept-Version ^1.4.0 semver versioning
+*
+* @apiSuccess {String} id Id of the Org.
+* @apiSuccess {Date} inserted Date Org was created
+* @apiSuccess {Date} updated Date Org was updated
+* @apiSuccess {String} name Name of the Org.
+* @apiSuccess {String} currency Three letter currency code.
+* @apiSuccess {Number} precision How many digits the currency goes out to.
+@apiSuccess {String} timezone Timezone to use for accounting.
+*
+* @apiSuccessExample Success-Response:
+*     HTTP/1.1 200 OK
+*     [
+*       {
+*         "id": "11111111111111111111111111111111",
+*         "inserted": "2018-09-11T18:05:04.420Z",
+*         "updated": "2018-09-11T18:05:04.420Z",
+*         "name": "MyOrg",
+*         "currency": "USD",
+*         "precision": 2,
+*         "timezone": "America/New_York"
+*       }
+*     ]
+*
+* @apiUse NotAuthorizedError
+* @apiUse InternalServerError
+*/
 func GetOrgs(w rest.ResponseWriter, r *rest.Request) {
 	user := r.Env["USER"].(*types.User)
 
@@ -102,12 +102,12 @@ func GetOrgs(w rest.ResponseWriter, r *rest.Request) {
 
 /**
  * @api {post} /orgs Create a new Org
- * @apiVersion 1.3.0
+ * @apiVersion 1.4.0
  * @apiName PostOrg
  * @apiGroup Org
  *
  * @apiHeader {String} Authorization HTTP Basic Auth
- * @apiHeader {String} Accept-Version ^1.3.0 semver versioning
+ * @apiHeader {String} Accept-Version ^1.4.0 semver versioning
  *
  * @apiParam {String} id Id 32 character hex string
  * @apiParam {String} name Name of the Org.
@@ -159,12 +159,12 @@ func PostOrg(w rest.ResponseWriter, r *rest.Request) {
 
 /**
  * @api {put} /orgs/:orgId Modify an Org
- * @apiVersion 1.3.0
+ * @apiVersion 1.4.0
  * @apiName PutOrg
  * @apiGroup Org
  *
  * @apiHeader {String} Authorization HTTP Basic Auth
- * @apiHeader {String} Accept-Version ^1.3.0 semver versioning
+ * @apiHeader {String} Accept-Version ^1.4.0 semver versioning
  *
  * @apiParam {String} name Name of the Org.
  *
@@ -216,12 +216,12 @@ func PutOrg(w rest.ResponseWriter, r *rest.Request) {
 
 /**
  * @api {post} /orgs/:orgId/invites Invite a user to an Org
- * @apiVersion 1.3.0
+ * @apiVersion 1.4.0
  * @apiName PostInvite
  * @apiGroup Org
  *
  * @apiHeader {String} Authorization HTTP Basic Auth
- * @apiHeader {String} Accept-Version ^1.3.0 semver versioning
+ * @apiHeader {String} Accept-Version ^1.4.0 semver versioning
  *
  * @apiParam {String} email Email address of user
  *
@@ -272,12 +272,12 @@ func PostInvite(w rest.ResponseWriter, r *rest.Request) {
 
 /**
  * @api {put} /orgs/:orgId/invites/:inviteId Accept an invitation
- * @apiVersion 1.3.0
+ * @apiVersion 1.4.0
  * @apiName PutInvite
  * @apiGroup Org
  *
  * @apiHeader {String} Authorization HTTP Basic Auth
- * @apiHeader {String} Accept-Version ^1.3.0 semver versioning
+ * @apiHeader {String} Accept-Version ^1.4.0 semver versioning
  *
  * @apiParam {String} accepted true
  *
@@ -329,12 +329,12 @@ func PutInvite(w rest.ResponseWriter, r *rest.Request) {
 
 /**
  * @api {get} /orgs/:orgId/invites Get Org invites
- * @apiVersion 1.3.0
+ * @apiVersion 1.4.0
  * @apiName GetInvites
  * @apiGroup Org
  *
  * @apiHeader {String} Authorization HTTP Basic Auth
- * @apiHeader {String} Accept-Version ^1.3.0 semver versioning
+ * @apiHeader {String} Accept-Version ^1.4.0 semver versioning
  *
  * @apiSuccess {String} id Id of the Invite
  * @apiSuccess {orgId} id Id of the Org
@@ -375,12 +375,12 @@ func GetInvites(w rest.ResponseWriter, r *rest.Request) {
 
 /**
  * @api {delete} /orgs/:orgId/invites/:inviteId Delete Invite
- * @apiVersion 1.3.0
+ * @apiVersion 1.4.0
  * @apiName DeleteInvite
  * @apiGroup Org
  *
  * @apiHeader {String} Authorization HTTP Basic Auth
- * @apiHeader {String} Accept-Version ^1.3.0 semver versioning
+ * @apiHeader {String} Accept-Version ^1.4.0 semver versioning
  *
  * @apiSuccessExample Success-Response:
  *     HTTP/1.1 200 OK

@@ -10,13 +10,13 @@ import (
 
 func main() {
 	if len(os.Args) != 2 {
-		log.Fatal("Usage: migrate2.go <upgrade/downgrade>")
+		log.Fatal("Usage: migrate3.go <upgrade/downgrade>")
 	}
 
 	command := os.Args[1]
 
 	if command != "upgrade" && command != "downgrade" {
-		log.Fatal("Usage: migrate2.go <upgrade/downgrade>")
+		log.Fatal("Usage: migrate3.go <upgrade/downgrade>")
 	}
 
 	//filename is the path to the json config file
@@ -68,7 +68,7 @@ func upgrade(db *db.DB) (err error) {
 		}
 	}()
 
-	query1 := "ALTER TABLE org ADD COLUMN timezone VARCHAR(100) NOT NULL AFTER `precision`"
+	query1 := "CREATE TABLE budgetitem (id INT UNSIGNED NOT NULL AUTO_INCREMENT, orgId BINARY(16) NOT NULL, accountId BINARY(16) NOT NULL, inserted BIGINT UNSIGNED NOT NULL, amount BIGINT NOT NULL, PRIMARY KEY(id)) ENGINE=InnoDB;"
 
 	if _, err = tx.Exec(query1); err != nil {
 		return
@@ -95,7 +95,7 @@ func downgrade(db *db.DB) (err error) {
 		}
 	}()
 
-	query1 := "ALTER TABLE org DROP COLUMN timezone"
+	query1 := "DROP TABLE budgetitem"
 
 	if _, err = tx.Exec(query1); err != nil {
 		return

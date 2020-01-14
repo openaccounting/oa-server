@@ -14,12 +14,12 @@ import (
 
 /**
  * @api {get} /orgs/:orgId/accounts Get Accounts by Org id
- * @apiVersion 1.3.0
+ * @apiVersion 1.4.0
  * @apiName GetOrgAccounts
  * @apiGroup Account
  *
  * @apiHeader {String} Authorization HTTP Basic Auth
- * @apiHeader {String} Accept-Version ^1.3.0 semver versioning
+ * @apiHeader {String} Accept-Version ^1.4.0 semver versioning
  *
  * @apiSuccess {String} id Id of the Account.
  * @apiSuccess {String} orgId Id of the Org.
@@ -86,12 +86,12 @@ func GetOrgAccounts(w rest.ResponseWriter, r *rest.Request) {
 
 /**
  * @api {get} /orgs/:orgId/accounts/:accountId Get Acount by Org id and Account id
- * @apiVersion 1.3.0
+ * @apiVersion 1.4.0
  * @apiName GetOrgAccount
  * @apiGroup Account
  *
  * @apiHeader {String} Authorization HTTP Basic Auth
- * @apiHeader {String} Accept-Version ^1.3.0 semver versioning
+ * @apiHeader {String} Accept-Version ^1.4.0 semver versioning
  *
  * @apiSuccess {String} id Id of the Account.
  * @apiSuccess {String} orgId Id of the Org.
@@ -157,12 +157,12 @@ func GetOrgAccount(w rest.ResponseWriter, r *rest.Request) {
 
 /**
  * @api {post} /orgs/:orgId/accounts Create a new Account
- * @apiVersion 1.3.0
+ * @apiVersion 1.4.0
  * @apiName PostAccount
  * @apiGroup Account
  *
  * @apiHeader {String} Authorization HTTP Basic Auth
- * @apiHeader {String} Accept-Version ^1.3.0 semver versioning
+ * @apiHeader {String} Accept-Version ^1.4.0 semver versioning
  *
  * @apiParam {String} id Id 32 character hex string
  * @apiParam {String} name Name of the Account.
@@ -270,12 +270,12 @@ func PostAccounts(w rest.ResponseWriter, r *rest.Request, content []byte) {
 
 /**
  * @api {put} /orgs/:orgId/accounts/:accountId Modify an Account
- * @apiVersion 1.3.0
+ * @apiVersion 1.4.0
  * @apiName PutAccount
  * @apiGroup Account
  *
  * @apiHeader {String} Authorization HTTP Basic Auth
- * @apiHeader {String} Accept-Version ^1.3.0 semver versioning
+ * @apiHeader {String} Accept-Version ^1.4.0 semver versioning
  *
  * @apiParam {String} id Id 32 character hex string
  * @apiParam {String} name Name of the Account.
@@ -345,12 +345,12 @@ func PutAccount(w rest.ResponseWriter, r *rest.Request) {
 
 /**
  * @api {delete} /orgs/:orgId/accounts/:accountId Delete an Account
- * @apiVersion 1.3.0
+ * @apiVersion 1.4.0
  * @apiName DeleteAccount
  * @apiGroup Account
  *
  * @apiHeader {String} Authorization HTTP Basic Auth
- * @apiHeader {String} Accept-Version ^1.3.0 semver versioning
+ * @apiHeader {String} Accept-Version ^1.4.0 semver versioning
  *
  * @apiSuccessExample Success-Response:
  *     HTTP/1.1 200 OK

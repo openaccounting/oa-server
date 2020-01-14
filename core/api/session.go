@@ -9,11 +9,11 @@ import (
 
 /**
  * @api {post} /sessions Create a new Session
- * @apiVersion 1.3.0
+ * @apiVersion 1.4.0
  * @apiName PostSession
  * @apiGroup Session
  *
- * @apiHeader {String} Accept-Version ^1.3.0 semver versioning
+ * @apiHeader {String} Accept-Version ^1.4.0 semver versioning
  * @apiHeader {String} Authorization HTTP Basic Auth
  *
  * @apiParam {String} id 32 character hex string
@@ -59,12 +59,12 @@ func PostSession(w rest.ResponseWriter, r *rest.Request) {
 
 /**
  * @api {delete} /sessions/:sessionId Log out of a Session
- * @apiVersion 1.3.0
+ * @apiVersion 1.4.0
  * @apiName DeleteSession
  * @apiGroup Session
  *
  * @apiHeader {String} Authorization HTTP Basic Auth
- * @apiHeader {String} Accept-Version ^1.3.0 semver versioning
+ * @apiHeader {String} Accept-Version ^1.4.0 semver versioning
  *
  * @apiSuccessExample Success-Response:
  *     HTTP/1.1 200 OK
