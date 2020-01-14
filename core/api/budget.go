@@ -17,7 +17,7 @@ import (
  * @apiHeader {String} Accept-Version ^1.4.0 semver versioning
  *
  * @apiSuccess {String} orgId Id of the Org.
- * @apiSuccess {Date} inserted Date Transaction was created
+ * @apiSuccess {Date} inserted Date Budget was created
  * @apiSuccess {Object[]} items Array of Budget Items
  *
  * @apiSuccessExample Success-Response:
@@ -70,7 +70,7 @@ func GetBudget(w rest.ResponseWriter, r *rest.Request) {
  * @apiParam {Number} items.amount Amount budgeted
  *
  * @apiSuccess {String} orgId Id of the Org.
- * @apiSuccess {Date} inserted Date Transaction was created
+ * @apiSuccess {Date} inserted Date Budget was created
  * @apiSuccess {Object[]} items Array of Budget Items
  *
  * @apiSuccessExample Success-Response:
