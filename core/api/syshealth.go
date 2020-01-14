@@ -7,12 +7,12 @@ import (
 
 /**
  * @api {get} /health-check Get system health status
- * @apiVersion 1.3.0
+ * @apiVersion 1.4.0
  * @apiName GetSystemHealthStatus
  * @apiGroup SystemHealth
  *
  *
- * @apiHeader {String} Accept-Version: 1.3.0 semver versioning
+ * @apiHeader {String} Accept-Version: 1.4.0 semver versioning
  *
  * @apiSuccess {String} database Database status: "ok"; "fail"
  * @apiSuccess {String} api API status: "ok"

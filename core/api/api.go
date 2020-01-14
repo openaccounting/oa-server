@@ -12,7 +12,7 @@ import (
  * - add `POST /orgs/:orgId/budget`
  * - add `DELETE /orgs/:orgId/budget`
  *
- * 1.3.0
+ * 1.4.0
  * - add org.timezone
  *
  * 1.2.0
