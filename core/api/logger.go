@@ -32,6 +32,7 @@ func (mw *LoggerMiddleware) MiddlewareFunc(h rest.HandlerFunc) rest.HandlerFunc 
 		message = message + " " + getStatus(r)
 		message = message + " " + getBytes(r)
 		message = message + " " + getUserAgent(r)
+		message = message + " " + getElapsedTime(r)
 
 		mw.Logger.Print(message)
 	}
@@ -59,6 +60,13 @@ func getUser(r *rest.Request) string {
 func getTime(r *rest.Request) string {
 	if r.Env["START_TIME"] != nil {
 		return r.Env["START_TIME"].(*time.Time).Format("02/Jan/2006:15:04:05 -0700")
+	}
+	return "-"
+}
+
+func getElapsedTime(r *rest.Request) string {
+	if r.Env["ELAPSED_TIME"] != nil {
+		return r.Env["ELAPSED_TIME"].(*time.Duration).String()
 	}
 	return "-"
 }
