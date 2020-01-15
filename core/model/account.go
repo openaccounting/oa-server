@@ -43,6 +43,17 @@ func (model *Model) CreateAccount(account *types.Account, userId string) (err er
 		return errors.New("currency required")
 	}
 
+	// don't allow setting parent that has transactions
+	count, err := model.db.GetSplitCountByAccountId(account.Parent)
+
+	if err != nil {
+		return
+	}
+
+	if count != 0 {
+		return errors.New("cannot set parent to account with transactions")
+	}
+
 	userAccounts, err := model.GetAccounts(account.OrgId, userId, "")
 
 	if err != nil {
