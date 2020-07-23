@@ -5,6 +5,7 @@ import (
 	"errors"
 	"github.com/openaccounting/oa-server/core/model/types"
 	"github.com/openaccounting/oa-server/core/util"
+	"strings"
 	"time"
 )
 
@@ -111,9 +112,9 @@ func (db *DB) UpdateUserResetPassword(user *types.User) error {
 }
 
 func (db *DB) GetVerifiedUserByEmail(email string) (*types.User, error) {
-	query := "SELECT  " + userFields + " FROM user u WHERE email = ? AND emailVerified = 1"
+	query := "SELECT  " + userFields + " FROM user u WHERE email = TRIM(LOWER(?)) AND emailVerified = 1"
 
-	row := db.QueryRow(query, email)
+	row := db.QueryRow(query, strings.TrimSpace(strings.ToLower(email)))
 	u, err := db.unmarshalUser(row)
 
 	if err != nil {
