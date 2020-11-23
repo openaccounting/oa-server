@@ -9,7 +9,8 @@
   "Database": "openaccounting",
   "User": "openaccounting",
   "Password": "openaccounting",
-  "SendgridKey": "",
-  "SendgridEmail": "noreply@domain.com",
-  "SendgridSender": "Sender"
+  "MailgunDomain": "mg.domain.com",
+  "MailgunKey": "",
+  "MailgunEmail": "noreply@domain.com",
+  "MailgunSender": "Sender"
 }
