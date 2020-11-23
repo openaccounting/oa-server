@@ -1,13 +1,15 @@
 package model
 
 import (
+	"context"
 	"errors"
-	"github.com/openaccounting/oa-server/core/model/types"
-	"github.com/openaccounting/oa-server/core/util"
-	"github.com/sendgrid/sendgrid-go"
-	"github.com/sendgrid/sendgrid-go/helpers/mail"
 	"log"
 	"regexp"
+	"time"
+
+	"github.com/mailgun/mailgun-go/v4"
+	"github.com/openaccounting/oa-server/core/model/types"
+	"github.com/openaccounting/oa-server/core/util"
 )
 
 type UserInterface interface {
@@ -175,11 +177,13 @@ func (model *Model) ConfirmResetPassword(password string, code string) (*types.U
 func (model *Model) SendVerificationEmail(user *types.User) error {
 	log.Println("Sending verification email to " + user.Email)
 
+	mg := mailgun.NewMailgun(model.config.MailgunDomain, model.config.MailgunKey)
+
 	link := model.config.WebUrl + "/user/verify?code=" + user.EmailVerifyCode
 
-	from := mail.NewEmail(model.config.SendgridSender, model.config.SendgridEmail)
+	from := model.config.MailgunSender + "<" + model.config.MailgunEmail + ">"
 	subject := "Verify your email"
-	to := mail.NewEmail(user.FirstName+" "+user.LastName, user.Email)
+	to := user.Email
 
 	plainTextContent := "Thank you for signing up with Open Accounting! " +
 		"Please click on the link below to verify your email address:\n\n" + link
@@ -187,17 +191,20 @@ func (model *Model) SendVerificationEmail(user *types.User) error {
 		"Please click on the link below to verify your email address:<br><br>" +
 		"<a href=\"" + link + "\">" + link + "</a>"
 
-	message := mail.NewSingleEmail(from, subject, to, plainTextContent, htmlContent)
-	client := sendgrid.NewSendClient(model.config.SendgridKey)
-	response, err := client.Send(message)
+	message := mg.NewMessage(from, subject, plainTextContent, to)
+	message.SetHtml(htmlContent)
+
+	ctx, cancel := context.WithTimeout(context.Background(), time.Second*10)
+	defer cancel()
+
+	// Send the message with a 10 second timeout
+	resp, id, err := mg.Send(ctx, message)
 
 	if err != nil {
 		return err
 	}
 
-	log.Println(response.StatusCode)
-	log.Println(response.Body)
-	log.Println(response.Headers)
+	log.Printf("ID: %s Resp: %s\n", id, resp)
 
 	return nil
 }
@@ -205,11 +212,13 @@ func (model *Model) SendVerificationEmail(user *types.User) error {
 func (model *Model) SendPasswordResetEmail(user *types.User) error {
 	log.Println("Sending password reset email to " + user.Email)
 
+	mg := mailgun.NewMailgun(model.config.MailgunDomain, model.config.MailgunKey)
+
 	link := model.config.WebUrl + "/user/reset-password?code=" + user.PasswordReset
 
-	from := mail.NewEmail(model.config.SendgridSender, model.config.SendgridEmail)
+	from := model.config.MailgunSender + "<" + model.config.MailgunEmail + ">"
 	subject := "Reset password"
-	to := mail.NewEmail(user.FirstName+" "+user.LastName, user.Email)
+	to := user.Email
 
 	plainTextContent := "Please click the following link to reset your password:\n\n" + link +
 		"If you did not request to have your password reset, please ignore this email and " +
@@ -219,17 +228,20 @@ func (model *Model) SendPasswordResetEmail(user *types.User) error {
 		"If you did not request to have your password reset, please ignore this email and " +
 		"nothing will happen."
 
-	message := mail.NewSingleEmail(from, subject, to, plainTextContent, htmlContent)
-	client := sendgrid.NewSendClient(model.config.SendgridKey)
-	response, err := client.Send(message)
+	message := mg.NewMessage(from, subject, plainTextContent, to)
+	message.SetHtml(htmlContent)
+
+	ctx, cancel := context.WithTimeout(context.Background(), time.Second*10)
+	defer cancel()
+
+	// Send the message with a 10 second timeout
+	resp, id, err := mg.Send(ctx, message)
 
 	if err != nil {
 		return err
 	}
 
-	log.Println(response.StatusCode)
-	log.Println(response.Body)
-	log.Println(response.Headers)
+	log.Printf("ID: %s Resp: %s\n", id, resp)
 
 	return nil
 }

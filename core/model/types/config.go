@@ -11,7 +11,8 @@ type Config struct {
 	Database        string
 	User            string
 	Password        string
-	SendgridKey     string
-	SendgridEmail   string
-	SendgridSender  string
+	MailgunDomain   string
+	MailgunKey      string
+	MailgunEmail    string
+	MailgunSender   string
 }
