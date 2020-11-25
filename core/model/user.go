@@ -192,6 +192,7 @@ func (model *Model) SendVerificationEmail(user *types.User) error {
 		"<a href=\"" + link + "\">" + link + "</a>"
 
 	message := mg.NewMessage(from, subject, plainTextContent, to)
+	message.AddHeader("Sender", from)
 	message.SetHtml(htmlContent)
 
 	ctx, cancel := context.WithTimeout(context.Background(), time.Second*10)
@@ -229,6 +230,7 @@ func (model *Model) SendPasswordResetEmail(user *types.User) error {
 		"nothing will happen."
 
 	message := mg.NewMessage(from, subject, plainTextContent, to)
+	message.AddHeader("Sender", from)
 	message.SetHtml(htmlContent)
 
 	ctx, cancel := context.WithTimeout(context.Background(), time.Second*10)
