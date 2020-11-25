@@ -181,7 +181,7 @@ func (model *Model) SendVerificationEmail(user *types.User) error {
 
 	link := model.config.WebUrl + "/user/verify?code=" + user.EmailVerifyCode
 
-	from := model.config.MailgunSender + "<" + model.config.MailgunEmail + ">"
+	from := model.config.MailgunSender + " <" + model.config.MailgunEmail + ">"
 	subject := "Verify your email"
 	to := user.Email
 
@@ -192,6 +192,7 @@ func (model *Model) SendVerificationEmail(user *types.User) error {
 		"<a href=\"" + link + "\">" + link + "</a>"
 
 	message := mg.NewMessage(from, subject, plainTextContent, to)
+	message.AddHeader("Sender", from)
 	message.SetHtml(htmlContent)
 
 	ctx, cancel := context.WithTimeout(context.Background(), time.Second*10)
@@ -216,7 +217,7 @@ func (model *Model) SendPasswordResetEmail(user *types.User) error {
 
 	link := model.config.WebUrl + "/user/reset-password?code=" + user.PasswordReset
 
-	from := model.config.MailgunSender + "<" + model.config.MailgunEmail + ">"
+	from := model.config.MailgunSender + " <" + model.config.MailgunEmail + ">"
 	subject := "Reset password"
 	to := user.Email
 
@@ -229,6 +230,7 @@ func (model *Model) SendPasswordResetEmail(user *types.User) error {
 		"nothing will happen."
 
 	message := mg.NewMessage(from, subject, plainTextContent, to)
+	message.AddHeader("Sender", from)
 	message.SetHtml(htmlContent)
 
 	ctx, cancel := context.WithTimeout(context.Background(), time.Second*10)
