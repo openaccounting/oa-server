@@ -2,11 +2,12 @@ package db
 
 import (
 	"database/sql"
-	"github.com/openaccounting/oa-server/core/model/types"
-	"github.com/openaccounting/oa-server/core/util"
 	"strconv"
 	"strings"
 	"time"
+
+	"github.com/openaccounting/oa-server/core/model/types"
+	"github.com/openaccounting/oa-server/core/util"
 )
 
 const txFields = "LOWER(HEX(id)),LOWER(HEX(orgId)),LOWER(HEX(userId)),date,inserted,updated,description,data,deleted"
@@ -106,7 +107,7 @@ func (db *DB) GetTransactionById(id string) (*types.Transaction, error) {
 }
 
 func (db *DB) GetTransactionsByAccount(accountId string, options *types.QueryOptions) ([]*types.Transaction, error) {
-	query := "SELECT LOWER(HEX(s.transactionId)) FROM split s"
+	query := "SELECT DISTINCT LOWER(HEX(s.transactionId)),s.date,s.inserted,s.updated FROM split s"
 
 	if options.DescriptionStartsWith != "" {
 		query = query + " JOIN transaction t ON t.id = s.transactionId"
@@ -128,7 +129,10 @@ func (db *DB) GetTransactionsByAccount(accountId string, options *types.QueryOpt
 
 	for rows.Next() {
 		var id string
-		err = rows.Scan(&id)
+		var date int64
+		var inserted int64
+		var updated int64
+		err = rows.Scan(&id, &date, &inserted, &updated)
 		if err != nil {
 			return nil, err
 		}
