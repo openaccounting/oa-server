@@ -99,4 +99,4 @@ config.json
 *.sublime-workspace
 
 ### Docs ###
-docs/
+doc/
