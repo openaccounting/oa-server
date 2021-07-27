@@ -97,3 +97,6 @@ config.json
 *.csr
 *.sublime-project
 *.sublime-workspace
+
+### Docs ###
+docs/
