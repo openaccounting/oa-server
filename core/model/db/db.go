@@ -3,6 +3,7 @@ package db
 import (
 	"database/sql"
 	_ "github.com/go-sql-driver/mysql"
+	_ "github.com/lib/pq"
 )
 
 type DB struct {
@@ -22,9 +23,9 @@ type Datastore interface {
 	BudgetInterface
 }
 
-func NewDB(dataSourceName string) (*DB, error) {
+func NewDB(dataSourceName string, sqldialict string) (*DB, error) {
 	var err error
-	db, err := sql.Open("mysql", dataSourceName)
+	db, err := sql.Open(sqldialict, dataSourceName)
 	if err != nil {
 		return nil, err
 	}

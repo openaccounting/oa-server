@@ -34,7 +34,7 @@ func main() {
 
 	connectionString := config.User + ":" + config.Password + "@" + config.DatabaseAddress + "/" + config.Database
 
-	db, err := db.NewDB(connectionString)
+	db, err := db.NewDB(connectionString, config.Driver)
 	if err != nil {
 		log.Fatal(fmt.Errorf("failed to connect to database with: %s", err.Error()))
 	}

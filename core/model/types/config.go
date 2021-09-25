@@ -15,4 +15,5 @@ type Config struct {
 	MailgunKey      string
 	MailgunEmail    string
 	MailgunSender   string
+	Driver          string
 }
