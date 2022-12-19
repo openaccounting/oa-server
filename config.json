@@ -1,0 +1,17 @@
+{
+  "WebUrl": "https://domain.com",
+  "Address": "",
+  "Port": 8080,
+  "ApiPrefix": "",
+  "KeyFile": "",
+  "CertFile": "",
+  "DatabaseAddress": "localhost:5432",
+  "Database": "openaccounting?sslmode=disable",
+  "User": "postgresql://openaccounting",
+  "Password": "openaccounting",
+  "MailgunDomain": "mg.domain.com",
+  "MailgunKey": "",
+  "MailgunEmail": "noreply@domain.com",
+  "MailgunSender": "Sender",
+  "Driver": "postgres"
+}
