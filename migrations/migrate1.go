@@ -35,7 +35,7 @@ func main() {
 	}
 
 	connectionString := config.User + ":" + config.Password + "@/" + config.Database
-	db, err := db.NewDB(connectionString)
+	db, err := db.NewDB(connectionString, "mysql")
 
 	if command == "upgrade" {
 		err = upgrade(db)
