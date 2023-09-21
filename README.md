@@ -23,4 +23,4 @@ Copy config.json.sample to config.json and edit to match your information.
 
 ## Help
 
-[Join our Slack chatroom](https://join.slack.com/t/openaccounting/shared_invite/enQtNDc3NTAyNjYyOTYzLTc0ZjRjMzlhOTg5MmYwNGQxZGQyM2IzZTExZWE0NDFlODRlNGVhZmZiNDkyZDlhODYwZDcyNTQ5ZWJkMDU3N2M) and talk with us!
+[Join our Slack chatroom](https://join.slack.com/t/openaccounting/shared_invite/zt-23zy988e8-93HP1GfLDB7osoQ6umpfiA) and talk with us!
