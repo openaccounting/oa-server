@@ -21,6 +21,10 @@ Copy config.json.sample to config.json and edit to match your information.
 
 `go build core/server.go`
 
+## Docker
+
+If you are interested in running Open Accounting via Docker, @alokmenghrajani has created a [repo](https://github.com/alokmenghrajani/openaccounting-docker) for this.
+
 ## Help
 
 [Join our Slack chatroom](https://join.slack.com/t/openaccounting/shared_invite/zt-23zy988e8-93HP1GfLDB7osoQ6umpfiA) and talk with us!
